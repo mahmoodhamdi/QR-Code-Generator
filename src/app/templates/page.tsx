@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { QRGenerator } from '@/components/qr';
+import { QRTemplates } from '@/components/qr/QRTemplates';
 
-export default function HomePage() {
-  const t = useTranslations('home');
+export default function TemplatesPage() {
+  const t = useTranslations('templates');
 
   return (
     <div className="space-y-6">
@@ -14,7 +14,7 @@ export default function HomePage() {
           {t('description')}
         </p>
       </div>
-      <QRGenerator />
+      <QRTemplates />
     </div>
   );
 }
