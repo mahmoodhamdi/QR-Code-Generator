@@ -2,6 +2,11 @@
 
 A modern, feature-rich QR code generator built with Next.js 15, featuring real-time preview, extensive customization options, and multi-language support (English & Arabic).
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC)](https://tailwindcss.com/)
+
 ![QR Code Generator - Home](test-screenshots/home-initial.png)
 
 ## Features
@@ -17,6 +22,7 @@ A modern, feature-rich QR code generator built with Next.js 15, featuring real-t
 - **Dark/Light Theme**: System-aware theme with manual toggle
 - **History**: Track and restore previously generated QR codes
 - **Responsive Design**: Works on desktop, tablet, and mobile
+- **PWA Ready**: Installable as a Progressive Web App
 
 ## Screenshots
 
@@ -49,15 +55,15 @@ A modern, feature-rich QR code generator built with Next.js 15, featuring real-t
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **UI Components**: shadcn/ui
-- **State Management**: Zustand
-- **Form Handling**: React Hook Form + Zod
-- **Internationalization**: next-intl
-- **QR Generation**: qrcode library
-- **Testing**: Jest + React Testing Library + Playwright
+- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Form Handling**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
+- **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/)
+- **QR Generation**: [qrcode](https://www.npmjs.com/package/qrcode)
+- **Testing**: [Jest](https://jestjs.io/) + [React Testing Library](https://testing-library.com/) + [Playwright](https://playwright.dev/)
 
 ## Getting Started
 
@@ -70,8 +76,8 @@ A modern, feature-rich QR code generator built with Next.js 15, featuring real-t
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/qr-generator.git
-cd qr-generator
+git clone https://github.com/mahmoodhamdi/QR-Code-Generator.git
+cd QR-Code-Generator
 ```
 
 2. Install dependencies:
@@ -177,19 +183,41 @@ Language can be switched using the language toggle in the header. The preference
 
 ## Customization Options
 
-- **Colors**: Foreground, background, and gradient colors
-- **Gradient Types**: None, Linear, Radial
-- **Pattern Styles**: Squares, Dots, Rounded
-- **Corner Styles**: Square, Rounded, Extra Rounded
-- **Size Presets**: Small (128px) to Print Ready (1024px)
-- **Error Correction**: Low (7%), Medium (15%), Quartile (25%), High (30%)
-- **Logo**: Upload custom logo with adjustable size
-- **Frame Text**: Add custom text below QR code
+| Option | Description |
+|--------|-------------|
+| **Foreground Color** | QR code pattern color |
+| **Background Color** | QR code background |
+| **Gradient** | None, Linear, or Radial gradient |
+| **Pattern Style** | Squares, Dots, or Rounded |
+| **Corner Style** | Square, Rounded, or Extra Rounded |
+| **Size** | Small (128px) to Print Ready (1024px) |
+| **Error Correction** | Low (7%), Medium (15%), Quartile (25%), High (30%) |
+| **Logo** | Upload custom logo with adjustable size |
+| **Frame Text** | Add custom text below QR code |
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-MIT License - feel free to use this project for personal or commercial purposes.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
-Created with Next.js and deployed on Vercel.
+**Mahmood Hamdi**
+- GitHub: [@mahmoodhamdi](https://github.com/mahmoodhamdi)
+- Email: hmdy7486@gmail.com
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/) for the amazing React framework
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [Vercel](https://vercel.com/) for hosting and deployment
