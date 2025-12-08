@@ -343,6 +343,7 @@ describe('QR Encoder', () => {
     });
 
     it('should return empty string for unknown type', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       expect(encodeQRData({ type: 'unknown' as any, data: {} as any })).toBe('');
     });
   });

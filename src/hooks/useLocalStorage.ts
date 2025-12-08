@@ -1,29 +1,49 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback, useSyncExternalStore } from 'react';
+
+// Helper to safely get value from localStorage
+function getStorageValue<T>(key: string, initialValue: T): T {
+  if (typeof window === 'undefined') {
+    return initialValue;
+  }
+  try {
+    const item = window.localStorage.getItem(key);
+    return item ? JSON.parse(item) : initialValue;
+  } catch (error) {
+    console.error(`Error reading localStorage key "${key}":`, error);
+    return initialValue;
+  }
+}
 
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T, (value: T | ((val: T) => T)) => void, () => void] {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
-  const [isHydrated, setIsHydrated] = useState(false);
+  // Use useSyncExternalStore to avoid setState-in-effect warning
+  const subscribe = useCallback((callback: () => void) => {
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+  }, []);
 
-  useEffect(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      if (item) {
-        setStoredValue(JSON.parse(item));
-      }
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-    }
-    setIsHydrated(true);
-  }, [key]);
+  const getSnapshot = useCallback(() => {
+    return getStorageValue(key, initialValue);
+  }, [key, initialValue]);
+
+  const getServerSnapshot = useCallback(() => initialValue, [initialValue]);
+
+  // This gives us the hydrated value from localStorage
+  const hydratedValue = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // Local state for immediate updates
+  const [storedValue, setStoredValue] = useState<T>(initialValue);
+  const [hasLocalUpdate, setHasLocalUpdate] = useState(false);
 
   const setValue = useCallback(
     (value: T | ((val: T) => T)) => {
       try {
-        const valueToStore = value instanceof Function ? value(storedValue) : value;
+        const currentValue = hasLocalUpdate ? storedValue : hydratedValue;
+        const valueToStore = value instanceof Function ? value(currentValue) : value;
         setStoredValue(valueToStore);
+        setHasLocalUpdate(true);
         if (typeof window !== 'undefined') {
           window.localStorage.setItem(key, JSON.stringify(valueToStore));
         }
@@ -31,12 +51,13 @@ export function useLocalStorage<T>(
         console.error(`Error setting localStorage key "${key}":`, error);
       }
     },
-    [key, storedValue]
+    [key, storedValue, hydratedValue, hasLocalUpdate]
   );
 
   const removeValue = useCallback(() => {
     try {
       setStoredValue(initialValue);
+      setHasLocalUpdate(true);
       if (typeof window !== 'undefined') {
         window.localStorage.removeItem(key);
       }
@@ -45,5 +66,6 @@ export function useLocalStorage<T>(
     }
   }, [key, initialValue]);
 
-  return [isHydrated ? storedValue : initialValue, setValue, removeValue];
+  const finalValue = hasLocalUpdate ? storedValue : hydratedValue;
+  return [finalValue, setValue, removeValue];
 }

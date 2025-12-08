@@ -165,7 +165,7 @@ export function encodeLocation(data: LocationData): string {
 // Encode Cryptocurrency
 export function encodeCrypto(data: CryptoData): string {
   const protocol = data.type === 'bitcoin' ? 'bitcoin' : 'ethereum';
-  let uri = `${protocol}:${data.address}`;
+  const uri = `${protocol}:${data.address}`;
 
   const params = new URLSearchParams();
   if (data.amount) params.set('amount', data.amount.toString());
