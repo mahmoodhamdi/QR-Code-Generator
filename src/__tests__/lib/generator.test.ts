@@ -45,6 +45,7 @@ describe('QR Generator', () => {
     });
 
     it('should apply customization options', async () => {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const QRCode = require('qrcode');
       await generateQRDataURL({
         data: 'Test',
