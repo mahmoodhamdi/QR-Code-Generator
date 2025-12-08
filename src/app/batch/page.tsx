@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { QRGenerator } from '@/components/qr';
+import { QRBatchGenerator } from '@/components/qr/QRBatchGenerator';
 
-export default function HomePage() {
-  const t = useTranslations('home');
+export default function BatchPage() {
+  const t = useTranslations('batch');
 
   return (
     <div className="space-y-6">
@@ -14,7 +14,7 @@ export default function HomePage() {
           {t('description')}
         </p>
       </div>
-      <QRGenerator />
+      <QRBatchGenerator />
     </div>
   );
 }

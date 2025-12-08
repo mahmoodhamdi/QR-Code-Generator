@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" fill="#3b82f6" rx="24"/>
+  <g fill="white">
+    <!-- QR Code pattern -->
+    <rect x="40" y="40" width="24" height="24"/>
+    <rect x="40" y="72" width="8" height="8"/>
+    <rect x="56" y="72" width="8" height="8"/>
+    <rect x="40" y="88" width="24" height="24"/>
+
+    <rect x="128" y="40" width="24" height="24"/>
+    <rect x="128" y="72" width="8" height="8"/>
+    <rect x="144" y="72" width="8" height="8"/>
+    <rect x="128" y="88" width="24" height="24"/>
+
+    <rect x="40" y="128" width="24" height="24"/>
+    <rect x="72" y="128" width="8" height="8"/>
+    <rect x="72" y="144" width="8" height="8"/>
+
+    <!-- Center pattern -->
+    <rect x="80" y="40" width="8" height="8"/>
+    <rect x="96" y="40" width="8" height="8"/>
+    <rect x="112" y="40" width="8" height="8"/>
+    <rect x="72" y="56" width="8" height="8"/>
+    <rect x="88" y="56" width="8" height="8"/>
+    <rect x="104" y="56" width="8" height="8"/>
+
+    <rect x="72" y="80" width="8" height="8"/>
+    <rect x="88" y="80" width="8" height="8"/>
+    <rect x="104" y="80" width="8" height="8"/>
+    <rect x="80" y="96" width="8" height="8"/>
+    <rect x="96" y="96" width="8" height="8"/>
+    <rect x="112" y="96" width="8" height="8"/>
+
+    <rect x="96" y="112" width="8" height="8"/>
+    <rect x="112" y="128" width="8" height="8"/>
+    <rect x="128" y="128" width="8" height="8"/>
+    <rect x="144" y="128" width="8" height="8"/>
+    <rect x="96" y="144" width="8" height="8"/>
+    <rect x="128" y="144" width="8" height="8"/>
+    <rect x="144" y="144" width="8" height="8"/>
+  </g>
+</svg>
