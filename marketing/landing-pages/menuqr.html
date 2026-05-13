@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MenuQR Pro — Digital QR menus for restaurants & cafés</title>
+<meta name="description" content="Replace plastic menus with a QR code customers scan. Multi-language, dietary tags, per-table codes, and printable PDFs included." />
+<meta property="og:title" content="MenuQR Pro — Digital QR menus for restaurants & cafés" />
+<meta property="og:description" content="Replace plastic menus with a QR code customers scan. Multi-language, dietary tags, per-table codes, and printable PDFs included." />
+<meta property="og:type" content="website" />
+<style>
+  :root { --primary: #d97706; --secondary: #92400e; --bg: #fdf8f3; --fg: #1f2937; --muted: #6b7280; --card: #ffffff; --border: #f9ebda; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  header { padding: 16px 0; }
+  .logo { font-weight: 700; font-size: 22px; color: var(--primary); }
+  .hero { padding: 64px 0 48px; text-align: center; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); margin: 0 0 16px; line-height: 1.1; letter-spacing: -0.02em; }
+  .hero p { font-size: 20px; color: var(--muted); max-width: 640px; margin: 0 auto 28px; }
+  .cta { display: inline-block; background: var(--primary); color: white; padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(0,0,0,0.05); color: var(--primary); font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 48px 0; }
+  .feature { padding: 24px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); }
+  .feature h3 { margin: 0 0 8px; font-size: 18px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+  .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 32px 0; }
+  .tier { padding: 32px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); }
+  .tier.popular { border-color: var(--primary); transform: scale(1.02); }
+  .price { font-size: 40px; font-weight: 700; color: var(--primary); margin: 8px 0; }
+  .price small { font-size: 14px; color: var(--muted); font-weight: 400; }
+  ul.tick { padding-left: 0; list-style: none; }
+  ul.tick li { padding: 6px 0; padding-left: 24px; position: relative; }
+  ul.tick li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+  footer { padding: 32px 0; color: var(--muted); font-size: 14px; text-align: center; border-top: 1px solid var(--border); margin-top: 48px; }
+  section h2 { font-size: 32px; margin: 0 0 24px; text-align: center; }
+</style>
+</head>
+<body>
+<header><div class="container"><div class="logo">MenuQR Pro</div></div></header>
+
+<section class="hero container">
+  <div class="pill">🛡 100% browser-based · No data sent to any server</div>
+  <h1>Digital QR menus for restaurants & cafés</h1>
+  <p>Replace plastic menus with a QR code customers scan. Multi-language, dietary tags, per-table codes, and printable PDFs included.</p>
+  <a class="cta" href="#pricing">See pricing →</a>
+</section>
+
+<section class="features container">
+    <div class="feature"><h3>Per-table QR codes</h3><p>Generate codes for tables 1–50 in one click. Each carries a ?table=N tag so you know which seat scanned.</p></div>
+  <div class="feature"><h3>Bilingual menus</h3><p>Generate two QRs from the same menu URL: one for English, one for Arabic.</p></div>
+  <div class="feature"><h3>Print-ready PDFs</h3><p>Export with bleed margins, crop marks, and CMYK conversion notes — your printer will love you.</p></div>
+  <div class="feature"><h3>WiFi sharing built in</h3><p>One QR for menu, another for WiFi. Customers scan both, never ask the staff.</p></div>
+  <div class="feature"><h3>Restaurant templates</h3><p>Warm amber café, fine-dining burgundy, fast-food vibrant — preloaded styles.</p></div>
+  <div class="feature"><h3>Update once, works everywhere</h3><p>Change your PDF menu — every existing QR keeps working.</p></div>
+</section>
+
+<section id="pricing" class="container">
+  <h2>Simple, one-time pricing</h2>
+  <div class="pricing">
+    <div class="tier"><h3>Basic</h3><div class="price">$1,500<small>/once</small></div><ul class="tick"><li>Full source code</li><li>Self-host anywhere</li><li>30-day support</li></ul></div>
+    <div class="tier popular"><h3>Plus</h3><div class="price">$2,500<small>/once</small></div><ul class="tick"><li>Everything in Basic</li><li>Branding setup</li><li>90-day support</li></ul></div>
+    <div class="tier"><h3>Lifetime</h3><div class="price">$4,000<small>/once</small></div><ul class="tick"><li>Everything in Plus</li><li>1 year support</li><li>2 custom features</li></ul></div>
+  </div>
+</section>
+
+<footer><div class="container">© MenuQR Pro · support@menuqr.app</div></footer>
+</body>
+</html>

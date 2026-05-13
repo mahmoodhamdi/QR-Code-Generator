@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EventQR Suite — Signed QR tickets + scanner check-in</title>
+<meta name="description" content="Generate cryptographically signed QR tickets that expire on event day, ship a built-in scanner for gate check-in, and prevent ticket forgery — all without a server." />
+<meta property="og:title" content="EventQR Suite — Signed QR tickets + scanner check-in" />
+<meta property="og:description" content="Generate cryptographically signed QR tickets that expire on event day, ship a built-in scanner for gate check-in, and prevent ticket forgery — all without a server." />
+<meta property="og:type" content="website" />
+<style>
+  :root { --primary: #7c3aed; --secondary: #5b21b6; --bg: #f8f5fe; --fg: #1f2937; --muted: #6b7280; --card: #ffffff; --border: #ebe1fc; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  header { padding: 16px 0; }
+  .logo { font-weight: 700; font-size: 22px; color: var(--primary); }
+  .hero { padding: 64px 0 48px; text-align: center; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); margin: 0 0 16px; line-height: 1.1; letter-spacing: -0.02em; }
+  .hero p { font-size: 20px; color: var(--muted); max-width: 640px; margin: 0 auto 28px; }
+  .cta { display: inline-block; background: var(--primary); color: white; padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(0,0,0,0.05); color: var(--primary); font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 48px 0; }
+  .feature { padding: 24px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); }
+  .feature h3 { margin: 0 0 8px; font-size: 18px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+  .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 32px 0; }
+  .tier { padding: 32px; border-radius: 16px; background: var(--card); border: 1px solid var(--border); }
+  .tier.popular { border-color: var(--primary); transform: scale(1.02); }
+  .price { font-size: 40px; font-weight: 700; color: var(--primary); margin: 8px 0; }
+  .price small { font-size: 14px; color: var(--muted); font-weight: 400; }
+  ul.tick { padding-left: 0; list-style: none; }
+  ul.tick li { padding: 6px 0; padding-left: 24px; position: relative; }
+  ul.tick li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+  footer { padding: 32px 0; color: var(--muted); font-size: 14px; text-align: center; border-top: 1px solid var(--border); margin-top: 48px; }
+  section h2 { font-size: 32px; margin: 0 0 24px; text-align: center; }
+</style>
+</head>
+<body>
+<header><div class="container"><div class="logo">EventQR Suite</div></div></header>
+
+<section class="hero container">
+  <div class="pill">🛡 100% browser-based · No data sent to any server</div>
+  <h1>Signed QR tickets + scanner check-in</h1>
+  <p>Generate cryptographically signed QR tickets that expire on event day, ship a built-in scanner for gate check-in, and prevent ticket forgery — all without a server.</p>
+  <a class="cta" href="#pricing">See pricing →</a>
+</section>
+
+<section class="features container">
+    <div class="feature"><h3>HMAC-signed tickets</h3><p>Every QR carries a cryptographic signature your scanner verifies — forgery-proof.</p></div>
+  <div class="feature"><h3>Expiring tickets</h3><p>Tickets become invalid after event day. No more late entry abuse.</p></div>
+  <div class="feature"><h3>One-time-use codes</h3><p>Each ticket has a unique nonce; scanners detect duplicates instantly.</p></div>
+  <div class="feature"><h3>Built-in gate scanner</h3><p>Repurposed scanner page shows green/red on validation. No extra hardware.</p></div>
+  <div class="feature"><h3>Bulk-generate 1000+ tickets</h3><p>Feed in a CSV of attendees, get a ZIP of personalised QR PNGs.</p></div>
+  <div class="feature"><h3>Event-themed templates</h3><p>High-contrast for fast scanning, plus a corporate conference badge style.</p></div>
+</section>
+
+<section id="pricing" class="container">
+  <h2>Simple, one-time pricing</h2>
+  <div class="pricing">
+    <div class="tier"><h3>Basic</h3><div class="price">$2,500<small>/once</small></div><ul class="tick"><li>Full source code</li><li>Self-host anywhere</li><li>30-day support</li></ul></div>
+    <div class="tier popular"><h3>Plus</h3><div class="price">$3,500<small>/once</small></div><ul class="tick"><li>Everything in Basic</li><li>Branding setup</li><li>90-day support</li></ul></div>
+    <div class="tier"><h3>Lifetime</h3><div class="price">$5,500<small>/once</small></div><ul class="tick"><li>Everything in Plus</li><li>1 year support</li><li>2 custom features</li></ul></div>
+  </div>
+</section>
+
+<footer><div class="container">© EventQR Suite · support@eventqr.app</div></footer>
+</body>
+</html>
