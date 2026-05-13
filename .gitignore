@@ -50,3 +50,9 @@ CLAUDE.md
 
 # Docker
 .docker/
+
+# Agent workspace
+.agent/
+.lighthouseci/
+.playwright-mcp/
+*.bench.json
