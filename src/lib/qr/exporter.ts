@@ -38,26 +38,63 @@ export async function exportAsSVG(params: ExportParams): Promise<void> {
   saveAs(blob, `${filename}.svg`);
 }
 
-// Export as PDF
+// Export as PDF (with optional print-ready features)
 export async function exportAsPDF(params: ExportParams): Promise<void> {
-  const { data, customization, filename = 'qrcode' } = params;
+  const { data, customization, filename = 'qrcode', options } = params;
+  const print = options?.print;
+  const dpi = print?.dpi ?? 150;
+  const bleed = print?.bleedMm ?? 0;
+  const cropMarks = print?.cropMarks ?? false;
 
-  const dataUrl = await generateQRWithLogo({ data, customization });
+  // Render at high resolution for print quality
+  const renderScale = Math.max(1, Math.round(dpi / 72));
+  const scaledCustomization = {
+    ...customization,
+    size: customization.size * renderScale,
+  };
+  const dataUrl = await generateQRWithLogo({ data, customization: scaledCustomization });
 
   const pdf = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
     format: 'a4',
+    compress: true,
   });
 
-  // Center QR code on page
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
   const qrSize = 80; // 80mm
   const x = (pageWidth - qrSize) / 2;
   const y = (pageHeight - qrSize) / 2;
 
+  // Bleed area frame (informational, drawn just outside QR)
+  if (bleed > 0) {
+    pdf.setDrawColor(220, 220, 220);
+    pdf.setLineWidth(0.1);
+    pdf.rect(x - bleed, y - bleed, qrSize + bleed * 2, qrSize + bleed * 2);
+  }
+
   pdf.addImage(dataUrl, 'PNG', x, y, qrSize, qrSize);
+
+  // Crop marks: short lines at each corner, 3mm long, 2mm offset
+  if (cropMarks) {
+    pdf.setDrawColor(0, 0, 0);
+    pdf.setLineWidth(0.2);
+    const offset = bleed > 0 ? bleed + 2 : 2;
+    const len = 3;
+    // top-left
+    pdf.line(x - offset - len, y - offset, x - offset, y - offset);
+    pdf.line(x - offset, y - offset - len, x - offset, y - offset);
+    // top-right
+    pdf.line(x + qrSize + offset, y - offset, x + qrSize + offset + len, y - offset);
+    pdf.line(x + qrSize + offset, y - offset - len, x + qrSize + offset, y - offset);
+    // bottom-left
+    pdf.line(x - offset - len, y + qrSize + offset, x - offset, y + qrSize + offset);
+    pdf.line(x - offset, y + qrSize + offset, x - offset, y + qrSize + offset + len);
+    // bottom-right
+    pdf.line(x + qrSize + offset, y + qrSize + offset, x + qrSize + offset + len, y + qrSize + offset);
+    pdf.line(x + qrSize + offset, y + qrSize + offset, x + qrSize + offset, y + qrSize + offset + len);
+  }
 
   // Add frame text if present
   if (customization.frameText) {
@@ -65,6 +102,14 @@ export async function exportAsPDF(params: ExportParams): Promise<void> {
     pdf.setTextColor(0, 0, 0);
     const textWidth = pdf.getTextWidth(customization.frameText);
     pdf.text(customization.frameText, (pageWidth - textWidth) / 2, y + qrSize + 10);
+  }
+
+  // Print-spec note (small, bottom-left)
+  if (print?.cmykNote || cropMarks || bleed > 0) {
+    pdf.setFontSize(7);
+    pdf.setTextColor(120, 120, 120);
+    const note = `Print @ ${dpi}dpi${bleed ? ` · bleed ${bleed}mm` : ''}${cropMarks ? ' · crop marks' : ''}${print?.cmykNote ? ' · convert RGB→CMYK in your RIP' : ''}`;
+    pdf.text(note, 10, pageHeight - 8);
   }
 
   pdf.save(`${filename}.pdf`);

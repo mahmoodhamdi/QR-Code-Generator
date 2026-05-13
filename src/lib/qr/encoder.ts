@@ -93,40 +93,92 @@ export function encodeWiFi(data: WiFiData): string {
   return `WIFI:${parts.join(';')};;`;
 }
 
-// Encode vCard 3.0
+// Escape vCard property values (RFC 6350 §3.4)
+function escapeVCardValue(value: string): string {
+  return value
+    .replace(/\\/g, '\\\\')
+    .replace(/\n/g, '\\n')
+    .replace(/,/g, '\\,')
+    .replace(/;/g, '\\;');
+}
+
+// Encode vCard (3.0 default, 4.0 when requested) — supports social profiles,
+// photo embedding, birthday, and multiple phone types.
 export function encodeVCard(data: VCardData): string {
-  const lines = [
+  const version = data.vcardVersion ?? '3.0';
+  const isV4 = version === '4.0';
+  const lines: string[] = [
     'BEGIN:VCARD',
-    'VERSION:3.0',
-    `N:${data.lastName || ''};${data.firstName};;;`,
-    `FN:${data.firstName}${data.lastName ? ' ' + data.lastName : ''}`,
+    `VERSION:${version}`,
+    `N:${escapeVCardValue(data.lastName || '')};${escapeVCardValue(data.firstName)};;;`,
+    `FN:${escapeVCardValue(data.firstName)}${data.lastName ? ' ' + escapeVCardValue(data.lastName) : ''}`,
   ];
 
-  if (data.organization) lines.push(`ORG:${data.organization}`);
-  if (data.title) lines.push(`TITLE:${data.title}`);
-  if (data.email) lines.push(`EMAIL:${data.email}`);
+  if (data.organization) lines.push(`ORG:${escapeVCardValue(data.organization)}`);
+  if (data.title) lines.push(`TITLE:${escapeVCardValue(data.title)}`);
+  if (data.email) {
+    lines.push(isV4 ? `EMAIL;TYPE=work:${data.email}` : `EMAIL:${data.email}`);
+  }
   if (data.phone) lines.push(`TEL;TYPE=WORK:${data.phone}`);
   if (data.mobile) lines.push(`TEL;TYPE=CELL:${data.mobile}`);
   if (data.fax) lines.push(`TEL;TYPE=FAX:${data.fax}`);
   if (data.website) lines.push(`URL:${data.website}`);
+  if (data.birthday) lines.push(`BDAY:${data.birthday.replace(/-/g, '')}`);
 
   if (data.street || data.city || data.state || data.zip || data.country) {
     const adr = [
       '',
       '',
-      data.street || '',
-      data.city || '',
-      data.state || '',
-      data.zip || '',
-      data.country || '',
+      escapeVCardValue(data.street || ''),
+      escapeVCardValue(data.city || ''),
+      escapeVCardValue(data.state || ''),
+      escapeVCardValue(data.zip || ''),
+      escapeVCardValue(data.country || ''),
     ].join(';');
     lines.push(`ADR;TYPE=WORK:${adr}`);
   }
 
-  if (data.note) lines.push(`NOTE:${data.note}`);
+  // Embedded photo (base64 data URL)
+  if (data.photoDataUrl) {
+    const match = data.photoDataUrl.match(/^data:image\/(png|jpeg|jpg);base64,(.+)$/i);
+    if (match) {
+      const type = match[1].toUpperCase().replace('JPG', 'JPEG');
+      const b64 = match[2];
+      lines.push(
+        isV4
+          ? `PHOTO:data:image/${type.toLowerCase()};base64,${b64}`
+          : `PHOTO;ENCODING=b;TYPE=${type}:${b64}`
+      );
+    }
+  }
+
+  // Social profiles (X-SOCIALPROFILE for v3, URL with TYPE for v4)
+  if (data.social) {
+    const handles: Array<[keyof NonNullable<VCardData['social']>, string]> = [
+      ['linkedin', 'https://linkedin.com/in/'],
+      ['twitter', 'https://x.com/'],
+      ['instagram', 'https://instagram.com/'],
+      ['github', 'https://github.com/'],
+      ['telegram', 'https://t.me/'],
+      ['whatsapp', 'https://wa.me/'],
+      ['facebook', 'https://facebook.com/'],
+    ];
+    for (const [key, prefix] of handles) {
+      const value = data.social[key];
+      if (!value) continue;
+      const url = value.startsWith('http') ? value : `${prefix}${value.replace(/^@/, '')}`;
+      lines.push(
+        isV4
+          ? `URL;TYPE=${key}:${url}`
+          : `X-SOCIALPROFILE;TYPE=${key}:${url}`
+      );
+    }
+  }
+
+  if (data.note) lines.push(`NOTE:${escapeVCardValue(data.note)}`);
 
   lines.push('END:VCARD');
-  return lines.join('\n');
+  return lines.join('\r\n');
 }
 
 // Encode Calendar Event (iCalendar/VEVENT format)
