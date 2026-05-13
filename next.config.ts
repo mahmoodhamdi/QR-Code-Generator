@@ -22,12 +22,27 @@ const securityHeaders = [
   },
   {
     key: 'Permissions-Policy',
-    value: 'camera=(self), microphone=()',
+    value: 'camera=(self), microphone=(), geolocation=()',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  {
+    key: 'Cross-Origin-Opener-Policy',
+    value: 'same-origin',
+  },
+  {
+    key: 'Cross-Origin-Resource-Policy',
+    value: 'same-origin',
   },
 ];
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  poweredByHeader: false,
+  reactStrictMode: true,
+  compress: true,
   async headers() {
     return [
       {
@@ -38,6 +53,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
   },
 };
 

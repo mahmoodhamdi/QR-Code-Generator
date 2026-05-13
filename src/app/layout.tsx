@@ -22,8 +22,10 @@ const geistMono = Geist_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('meta');
+  const locale = await getLocale();
 
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
     title: {
       default: t('homeTitle'),
       template: '%s | QR Generator',
@@ -36,6 +38,10 @@ export async function generateMetadata(): Promise<Metadata> {
       'WiFi QR code',
       'vCard QR code',
       'URL QR code',
+      'menu QR code',
+      'event QR code',
+      'business card QR',
+      'bulk QR generator',
     ],
     authors: [{ name: 'QR Generator' }],
     creator: 'QR Generator',
@@ -43,6 +49,35 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: '/favicon.ico',
       apple: '/icons/icon-192x192.png',
+    },
+    openGraph: {
+      title: t('homeTitle'),
+      description: t('homeDescription'),
+      type: 'website',
+      locale,
+      alternateLocale: locale === 'ar' ? 'en' : 'ar',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('homeTitle'),
+      description: t('homeDescription'),
+    },
+    alternates: {
+      canonical: '/',
+      languages: {
+        en: '/?locale=en',
+        ar: '/?locale=ar',
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   };
 }

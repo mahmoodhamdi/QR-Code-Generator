@@ -73,6 +73,16 @@ export interface WiFiData {
   hidden?: boolean;
 }
 
+export interface VCardSocial {
+  linkedin?: string;
+  twitter?: string;
+  instagram?: string;
+  github?: string;
+  telegram?: string;
+  whatsapp?: string;
+  facebook?: string;
+}
+
 export interface VCardData {
   firstName: string;
   lastName: string;
@@ -89,6 +99,11 @@ export interface VCardData {
   zip?: string;
   country?: string;
   note?: string;
+  // vCard 4.0 extensions
+  photoDataUrl?: string;
+  birthday?: string; // YYYY-MM-DD
+  social?: VCardSocial;
+  vcardVersion?: '3.0' | '4.0';
 }
 
 export interface CalendarData {
@@ -158,10 +173,24 @@ export interface QRTemplate {
 // Export format
 export type ExportFormat = 'png' | 'svg' | 'pdf' | 'jpeg' | 'webp';
 
+// DPI presets for print-ready export
+export type PrintDPI = 72 | 150 | 300 | 600 | 1200;
+
+// Bleed margin in mm for professional printing
+export type BleedMargin = 0 | 3 | 5;
+
+export interface PrintOptions {
+  dpi?: PrintDPI;
+  bleedMm?: BleedMargin;
+  cropMarks?: boolean;
+  cmykNote?: boolean;
+}
+
 export interface ExportOptions {
   format: ExportFormat;
   quality?: number;
   scale?: number;
+  print?: PrintOptions;
 }
 
 // Batch generation

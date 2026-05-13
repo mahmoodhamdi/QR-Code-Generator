@@ -449,6 +449,32 @@
     "batchTitle": "Batch QR Code Generator",
     "batchDescription": "Generate multiple QR codes at once. Upload a CSV file or enter data manually to create bulk QR codes.",
     "templatesTitle": "QR Code Templates",
-    "templatesDescription": "Browse and use pre-made QR code templates. Choose from various styles including classic, modern, gradient, and more."
+    "templatesDescription": "Browse and use pre-made QR code templates. Choose from various styles including classic, modern, gradient, and more.",
+    "privacyTitle": "Privacy & How It Works",
+    "privacyDescription": "Everything runs inside your browser. No QR data, logos, or scan content ever leaves your device."
+  },
+  "privacy": {
+    "badgeShort": "100% Browser-Based",
+    "badgeLong": "No data ever leaves your device",
+    "pageTitle": "Privacy & How It Works",
+    "intro": "Unlike most QR generators, this tool processes everything inside your browser. Your URLs, WiFi passwords, contacts, and scanned codes never touch a server.",
+    "pillarsTitle": "Our Privacy Pillars",
+    "pillar1Title": "No Server, No Network Calls",
+    "pillar1Body": "QR generation runs 100% client-side. Open DevTools → Network tab and confirm: zero outbound requests when you generate a code.",
+    "pillar2Title": "No Accounts, No Cookies for Tracking",
+    "pillar2Body": "Only a local theme preference and your history are stored — in your browser's localStorage. Clear your browser data and everything is gone.",
+    "pillar3Title": "No Analytics, No Trackers",
+    "pillar3Body": "No Google Analytics, no Facebook Pixel, no fingerprinting scripts. The page you see is the page you get.",
+    "pillar4Title": "Open Source & Auditable",
+    "pillar4Body": "The source code is public. Read it, audit it, host it yourself — no trust required.",
+    "techTitle": "Technical Verification",
+    "techIntro": "We ship an automated test that fails CI if any outbound network request occurs during QR generation. The privacy claim is enforced, not just stated.",
+    "scopeTitle": "What is Stored Locally",
+    "scopeItem1": "Your last 50 generated QR codes (history) — in localStorage",
+    "scopeItem2": "Your selected theme (light/dark) — in localStorage",
+    "scopeItem3": "Your language preference — in a cookie (so server-rendered pages match your locale)",
+    "scopeOutro": "That's it. Nothing else. No telemetry. No identifiers.",
+    "trustTitle": "When Should You Self-Host?",
+    "trustBody": "If you generate QR codes containing extremely sensitive data (medical records, government credentials, internal corporate URLs), self-host this app on your own infrastructure. The Docker image takes 60 seconds to deploy."
   }
 }
