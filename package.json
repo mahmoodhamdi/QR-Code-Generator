@@ -13,7 +13,10 @@
     "test:coverage": "jest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:all": "npm run test && npm run test:e2e"
+    "test:all": "npm run test && npm run test:e2e",
+    "locales:stubs": "node scripts/build-locale-stubs.mjs",
+    "build:vertical": "node scripts/build-vertical.mjs",
+    "build:verticals:all": "node scripts/build-vertical.mjs all"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
