@@ -1,6 +1,19 @@
 import { defineConfig, devices } from '@playwright/test';
+import { existsSync } from 'node:fs';
 
-const CHROME_PATH = process.env.CHROME_EXECUTABLE || '/usr/bin/google-chrome';
+// On the maintainer's ubuntu26 host Playwright can't install its bundled
+// chromium, so we point it at the system Chrome. On CI / supported hosts we
+// leave executablePath undefined and let Playwright use its own browser.
+const candidatePaths = [
+  process.env.CHROME_EXECUTABLE,
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  '/snap/bin/chromium',
+].filter(Boolean) as string[];
+
+const resolvedChrome = candidatePaths.find((p) => existsSync(p));
+
+const launchOptions = resolvedChrome ? { executablePath: resolvedChrome } : {};
 
 export default defineConfig({
   testDir: './e2e',
@@ -21,17 +34,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        launchOptions: { executablePath: CHROME_PATH },
-      },
+      use: { ...devices['Desktop Chrome'], launchOptions },
     },
     {
       name: 'Mobile Chrome',
-      use: {
-        ...devices['Pixel 5'],
-        launchOptions: { executablePath: CHROME_PATH },
-      },
+      use: { ...devices['Pixel 5'], launchOptions },
     },
   ],
   webServer: {
